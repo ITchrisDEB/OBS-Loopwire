@@ -1,0 +1,12 @@
+# Rust build output
+/target/
+
+# Precompiled/packaged artifacts (this repo ships sources only —
+# a plugin must be rebuilt locally to match the local libobs/Qt6 ABI)
+/dist/
+*.tar.gz
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
