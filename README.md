@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">LoopWire</h1>
-<p align="center"><strong>🎚️ A native Rust + Qt6 OBS Studio plugin to mute, adjust volume, and map a USB audio capture card straight into your output — without leaving OBS.</strong></p>
+<p align="center"><strong>🎚️ A native Rust + Qt6 OBS Studio plugin to mute, adjust volume, and route your HDMI-to-USB capture card's audio into your computer's speakers — without leaving OBS.</strong></p>
 
 <div align="center">
     <img alt="platform" src="https://img.shields.io/badge/platform-Linux-informational?style=flat&logo=linux">
@@ -49,10 +49,12 @@ names) — there is no macOS or Windows target, and none is planned.
 - **Mute / unmute** the capture card's input in one click, from a dock
   inside OBS.
 - **Volume slider** (0–150 %) for that input specifically.
-- **Map / Unmap** — loads or unloads a PipeWire `module-loopback` from the
-  capture source to your speakers, so you hear it without opening a full
-  mixer. A single toggle button (green = mapped, red = unmapped), same
-  interaction pattern as the mute button.
+- **Map / Unmap** — the core feature: routes the audio from your HDMI
+  capture card (or USB acquisition dongle) straight into your computer's
+  speakers, one click, no mixer needed. Under the hood it loads/unloads a
+  PipeWire `module-loopback` between the capture source and your output. A
+  single toggle button (green = mapped, red = unmapped), same interaction
+  pattern as the mute button.
 - **Auto or manual output** — send the loopback to whatever PipeWire
   currently considers the *default* system output, or pin it to a specific
   sink.
@@ -81,7 +83,10 @@ names) — there is no macOS or Windows target, and none is planned.
   it through the commands below — it could bump it to a different version
   and break ABI compatibility with the plugin you compile).
 - A Rust toolchain, a C++ compiler, Qt6 + OBS Studio development headers,
-  `pkg-config`, and `libclang` (used by `bindgen` to read the OBS headers):
+  `pkg-config`, and `libclang` (used by `bindgen` to read the OBS headers).
+  `install.sh` detects your distribution automatically and proposes the
+  right command below (nothing is installed without your confirmation) —
+  or install manually:
 
   ```sh
   # Arch / CachyOS / Manjaro — OBS dev headers ship inside the obs-studio package itself
@@ -96,16 +101,13 @@ names) — there is no macOS or Windows target, and none is planned.
       obs-studio-devel qt6-qtbase-devel pkgconf-pkg-config
   ```
 
-  Package names verified against each distro's index: Debian
-  ([`libobs-dev`](https://packages.debian.org/bookworm/libobs-dev),
-  [`qt6-base-dev`](https://packages.debian.org/bookworm/qt6-base-dev),
-  [`libclang-dev`](https://packages.debian.org/bookworm/libclang-dev)) and
-  Fedora
-  ([`obs-studio-devel`](https://packages.fedoraproject.org/pkgs/obs-studio/obs-studio-devel/),
-  [`qt6-qtbase-devel`](https://packages.fedoraproject.org/pkgs/qt6-qtbase/qt6-qtbase-devel/),
-  [`clang-devel`](https://packages.fedoraproject.org/pkgs/llvm/clang-devel/)).
-  If `libobs-dev` isn't available for your Ubuntu release (older versions),
-  add the official PPA first: `ppa:obsproject/obs-studio`.
+  Package names verified by actually installing them in throwaway
+  containers (not just checking a package index): confirmed working with a
+  plain `apt install` on **Debian 13 "trixie"** and **Ubuntu 24.04
+  "noble"**, and with a plain `dnf install` on **Fedora 44** — no PPA or
+  backports needed on any of them. If a future release ever drops
+  `libobs-dev` from its main repos, the official PPA
+  (`ppa:obsproject/obs-studio`) is the fallback.
 
 ## Install
 
