@@ -187,11 +187,15 @@ guesses wrong on your system).
 
 ### Manual build (without `install.sh`)
 
-`install.sh` is just these three steps with a confirmation prompt in front —
-useful to know if you'd rather run them yourself, or if you're customizing
-the install path:
+`install.sh` is just these steps with dependency auto-detection and a
+confirmation prompt in front — useful to know if you'd rather run them
+yourself, or if you're customizing the install path:
 
 ```sh
+# 0. Get the source (skip if you already have it, e.g. from the Install step)
+git clone https://github.com/ITchrisDEB/OBS-Loopwire.git
+cd OBS-Loopwire
+
 # 1. Compile in release mode
 cargo build --release
 
