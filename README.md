@@ -33,6 +33,11 @@ Rust with the memory safety that implies.
 PipeWire/PulseAudio semantics (card profiles, `module-loopback`, ALSA card
 names) — there is no macOS or Windows target, and none is planned.
 
+**Tested hardware:** a generic "HD USB Video Capture Card" (model **CM489**,
+MACROSILICON chipset) — but since nothing is hardcoded to this device (see
+[Live device detection](#what-it-does)), any capture card exposing its audio
+as a standard USB Audio Class endpoint should work the same way.
+
 ## Screenshots
 
 <p align="center">
